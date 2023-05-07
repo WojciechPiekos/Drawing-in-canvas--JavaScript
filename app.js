@@ -1,6 +1,6 @@
 
 class CanvasDrawing {
-    constructor() {
+    constructor(drawingPanel) {
         this.canvas = document.querySelector(".canvas")
         this.canvas.width = window.innerWidth
         this.canvas.height = window.innerHeight
@@ -12,15 +12,16 @@ class CanvasDrawing {
         this.setLineColor("#000")
 
         this.drawing = false
+        this.drawingPanel = drawingPanel
 
         this.init()
     }
 
-    setLineWidth(width) {
+    setLineWidth = (width) => {
         this.context.lineWidth = width
     }
 
-    setLineColor(color) {
+    setLineColor = (color) => {
         this.context.strokeStyle = color
     }
 
@@ -35,6 +36,8 @@ class CanvasDrawing {
         canvas.addEventListener("mousemove", this.draw)
         canvas.addEventListener("mouseup", this.stopDrawing)
         canvas.addEventListener("mouseout", this.stopDrawing)
+
+        this.drawingPanel.addPanelListeners(this.setLineColor,this.setLineWidth)
     }
 
     startDrawing = (e) => {
@@ -59,4 +62,4 @@ class CanvasDrawing {
     }
 }
 
-const canvasDrawing = new CanvasDrawing()
+const canvasDrawing = new CanvasDrawing(drawingPanel)
